@@ -1,0 +1,59 @@
+# from flask import Flask, render_template, request
+# import numpy as np
+# import pandas as pd
+# from tensorflow import keras
+# from keras.models import load_model
+# import tensorflow as tf
+# import flask
+
+# app = flask.Flask(__name__, template_folder='templates')
+
+
+# def init():
+#     global model, graph
+#     # load the pre-trained Keras model
+#     model = load_model('model.h5')
+#     graph = tf.get_default_graph()
+
+
+# @app.route('/', methods=['GET', 'POST'])
+# def main():
+#     if flask.request.method == 'GET':
+#         return (flask.render_template('index.html'))
+
+#     if flask.request.method == 'POST':
+#         Penggugat = flask.request.form['Penggugat']
+#         Tergugat = flask.request.form['Tergugat']
+#         LNikah = flask.request.form['LNikah']
+#         JumAnak = flask.request.form['JumAnak']
+#         Indikator = flask.request.form['Indikator']
+#         Mediasi = flask.request.form['Mediasi']
+
+#         input_variables = pd.DataFrame([[Penggugat, Tergugat, LNikah, JumAnak, Indikator, Mediasi, ]],
+#                                        columns=[
+#             'Penggugat',
+#             'Tergugat',
+#             'LNikah',
+#             'JumAnak',
+#             'Indikator',
+#             'Mediasi', ],
+#             dtype='float',
+
+#             index=['input']).reshape(1, 6)
+
+#         with graph.as_default():
+#         y = model.predict(input_variables)[0]
+
+#         return flask.render_template('index.html',
+#                                      original_input={
+#                                          'Penggugat': Penggugat,
+#                                          'Tergugat': Tergugat,
+#                                          'LNikah': LNikah,
+#                                          'JumAnak': JumAnak,
+#                                          'Indikator': Indikator,
+#                                          'Mediasi': Mediasi, },
+#                                      result=y)
+
+
+# if __name__ == '__main__':
+#     app.run(debug=True)

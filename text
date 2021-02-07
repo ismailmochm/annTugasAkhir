@@ -1,0 +1,57 @@
+from keras.models import model_from_json
+import joblib
+from keras.layers import Dense
+from keras.models import Sequential
+import numpy as np
+import pandas as pd
+import keras
+import tensorflow as tf
+from sklearn.model_selection import train_test_split
+from sklearn import preprocessing
+import pickle
+
+cerai = pd.read_csv("cerai.csv", sep=',')
+
+# cerai.shape
+
+# dataset = cerai.values
+
+# X = dataset[:, 0:6]
+# y = dataset[:, 6]
+
+# min_max_scaler = preprocessing.MinMaxScaler()
+
+# x_scaler = min_max_scaler.fit_transform(X)
+
+
+# X_train, X_val_and_test, Y_train, Y_val_and_test = train_test_split(
+#     x_scaler, y, test_size=0.3)
+
+# X_val, X_test, Y_val, Y_test = train_test_split(
+#     X_val_and_test, Y_val_and_test, test_size=0.5)
+
+
+model = Sequential()
+model = Sequential([
+    Dense(units=24, input_shape=(6,), activation='relu'),
+    Dense(units=48, activation='relu'),
+    Dense(units=1, activation='softmax')
+])
+
+model.compile(optimizer='sgd', loss='binary_crossentropy',
+              metrics=['accuracy'])
+
+hist = model.fit(X_train, Y_train, batch_size=32,
+                 epochs=100, validation_data=(X_val, Y_val))
+
+model.evaluate(X_test, Y_test)[1]
+
+model.predict([[34, 25, 2, 1, 1, 1, ]])
+
+model.save("model.h5")
+print("Saved model to disk")
+
+
+# model_json = model.to_json()
+# with open("model.json", "w") as json_file:
+#     json_file.write(model_json)
